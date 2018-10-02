@@ -1,0 +1,150 @@
+==name== Maximiliam Karl
+
+Unsupervised Control
+
+Empowerment has been shown to be a good model of biological behaviour in the absence of an extrinsic goal. It is defined as the channel capacity between actions and states and maximises the influence of an agent on its near future. It can be used to make robots balance and walk, without the need of inventing complex cost functions. We introduce an efficient method for computing empowerment and learning empowerment-maximising policies. Both methods require a model of the agent and its environment and benefit from system dynamics learned on raw data. For learning the system dynamics we use Deep Variational Bayes Filters (DVBF), a new method for unsupervised learning and identification of latent Markovian state space models. We show the ability to learn useful behaviour on various simulated robots, including biped balancing; lidar-based flock behaviour; but also on real robot hardware in the form of quadrocopters with local sensing and computing.
+
+
+
+
+==name== Roshan Shariff
+
+Predicting Rewards at Every Time Scale
+In reinforcement learning, future rewards are often discounted: we prefer rewards we receive immediately rather than those far in the future. The rate of discounting imposes a "time scale" on our reward valuation and is incorporated into the learned value functions. In this talk, I discuss how learning value functions with several different discount factors allows us to reason about the detailed temporal structure of future rewards.
+
+
+
+==name== Joel Sjöbom
+Corticostriatal circuits encode behavioral transitions in natural behavior
+In natural behavior, we fluidly change from one type of activity to another in a sequence of motor patterns. Cortical and striatal circuits are thought to have a particularly important role in the construction of action sequences, but neuronal coding of a sequential behavior consisting of different motor programs has not been investigated at the circuit-level, making the exact nature of this involvement elusive. Here I will talk about how activity in motor cortex and dorsal striatum are related to action sequencing in a complex spontaneous behavior - rodent self-grooming.
+
+
+
+==name== Anahita Jamshidnejad
+Efficient predictive model-based and fuzzy control
+The main focus of my presentation is on efficient, integrated model-based, predictive, and artificial intelligence-based  control approaches for systems with a highly nonlinear behavior and multiple control sub-objectives (in particular urban traffic networks).
+My presentation will include three parts:
+- In the first part, I will introduce general approaches for recasting nonsmooth optimization problems into smooth
+ones, in order to solve them efficiently by gradient-based optimization methods. 
+- In the second part, I will discuss a novel integrated control architecture that consists of several parameterized and
+optimization-based controllers in two separate "base" and "parallel" blocks. The main aim of using this architecture is
+to effectively control the behavior of complex systems in real time.
+- In the third part, a coordinative multi-agent architecture is proposed that integrates predictive control methods
+with fuzzy control approaches to develop a two-layer adaptive control system. Potential applications of the proposed
+control architecture include search-and-rescue missions, deep space exploration, underwater operations,
+and autonomous aircraft.
+
+==name== Miriam Zacksenhouse
+
+Natural Dynamic Controllers for Legged Robots
+
+Natural dynamic controllers aim at exploiting the natural dynamics of the system to perform the task rather than accurately following a prescribed trajectory. Pushing a child on a swing by applying a pulse of force once per cycle, when the swing approaches the person on the ground, clearly exploits the natural dynamics of the swing. In contrast, holding and moving the swing, as one would do when an infant is sitting on the swing, exemplifies trajectory control. In the context of legged locomotion, the former would correspond to pushing/throwing the leg once per cycle, by applying a pulse of torque at the hip, and letting the natural dynamics of the body and leg to propel the robot forward. Additional torque pulses may be applied at the hip and at the other joints to facilitate walking and enhance robustness.
+The activation and termination of the torque pulses can be determined by either an internal phase variable, or specific events. The former implements a simple 2-level central pattern generator (CPG), consisting of a rhythmic generator (RG) that controls pattern formation (PF). Triggering torque pulses at specific events implements a reflex that may enhance robustness.
+I will review our work on natural dynamic controllers for legged robots, including: (i) adaptation to a wide range of slopes with once per cycle feedback; (ii) stability and robustness analysis; (iii) enhancing robustness with compensation controllers; (iv) demonstration on a mono-pedal robot, (v) optimization using reinforcement learning with policy gradient; and (vi) advantages of 2-level compared to 1-level CPG.
+
+==name== Farnaz Adib Yaghmaie
+
+Reinforcement Learning for control of continuous-time systems
+
+Abstract: Machine learning can be divided into three categories: 1- Supervised learning, 2- Unsupervised learning and 3- Reinforcement Learning (RL). Within these categories, RL is specifically interesting, as it concerns with learning optimal policies from interaction with an environment and receiving a cost. In this sense, RL implies a cause and effect relationship between policies and costs, and as such, RL based frameworks enjoy optimality and adaptivity. In this talk, we consider RL from a control perspective; that is, we consider RL techniques for dynamical systems with continuous state and control-space. This is more demanding in comparison with RL for classical Markov Decision Processes (MDP) with a finite number of state and control variables since the stability of the dynamical systems as well as other control related properties need to be guaranteed.
+
+==name== Ekin Basalp
+Robot Assisted Training to Support Motor Learning for Different Skill Levels
+
+When attempting to learn a new motor task, humans require extra source of information about their performance. Generally, availability of external information accelerates the motor learning and increases the quality of the executed movement, which is in line with the underlying principle of Challenge Point Framework.
+Challenge Point Framework states that i) learning is dependent on the available and interpretable information during performance and ii) presence of information acts as a challenge to the learner. Thus, learning can be best accomplished if the optimal amount of information is provided, i.e. at the optimal challenge point. To benefit from challenge the learner has to overcome it, which is dependent on his/her skill level.
+Since different motor tasks incorporate different types and amount of information, the inherent challenge should be adjusted adequately to the beginners and experts. When suitable types of external information can be supplied at a specific learning phase and updated to more appropriate types in later phases, the entire learning process can be supported.
+However, it is yet unknown how the optimal challenge point can be designated and mediated for different skill levels, especially for complex motor tasks. Simulators offer many possibilities to modulate the information available for the trainee in terms of rendering task characteristics and training conditions.
+In this project, we investigate the effect of modulating the difficulty of training conditions in our rowing simulator. The motor skill to be learned is upper body-arm sweep rowing. By holding an actual oar handle, subjects try to follow a previously recorded trajectory drawn on the screen. The simulator is then used to increase the virtual water density that will result in noticeable force changes on the handle. Starting from the lowest density condition, in which the task execution effort is minimum, water density will be increased to increment water resistance and effort.
+Experimental procedure takes place on three consecutive days. Recorded data are analyzed to find progress of participants’ short- and long-term learning. At the last day, three transfer tests are also assessed to generalize the outcomes of the robot-assisted training in varying training conditions
+
+
+
+==name== Zhongqi Sun
+Event-based MPC with adaptive horizon for nonlinear systems
+
+Model predictive control (MPC) has the advantages of explicitly handling input and state constraints and optimizing the performance. Generally, traditional MPC requires a quite heavy computation, especially for nonlinear systems, to solve an optimization control problem (OCP) at each step. This may prevent its application to ``fast" systems such as unmanned ground vehicles, quadrotor and servo systems, etc. This motivated us to design event- or self-triggered MPC to reduce the frequency of solving the OCP. The event-based approach is able to alleviate the computation burden, but it only through the reduction in the frequency of solving the OCP. The computational complexity at each update remains high, because the prediction horizon is usually a fixed constant. Therefore, we develop an event-based MPC with an adaptive horizon scheme, which saves the computing resources in two ways: decreasing the frequency of solving the OCP and reducing the complexity of each OCP.
+
+==name== Yu Kawano
+Partial Synchronization and Model Reduction of Nonlinear Biological Networks
+
+The talk consists of two parts. In the first one, we study the partial 
+synchronization of Kuramoto oscillators. Partial synchronization of neuronal 
+ensembles are often observed in the human brain, which is believed to 
+facilitate communication among anatomical regions demanded by cognitive 
+tasks. Since such neurons are commonly modeled by oscillators, to better 
+understand their partial synchronization behavior, we study partial
+phase cohesiveness in networks of Kuramoto oscillators. In the second part,
+we study model reduction of nonlinear monotone networks. Biological networks
+can easily be nonlinear and large scale. For simplification of analysis, it is 
+reasonable to construct less complex models. In this talk, we focus on biological 
+networks which can be modeled as monotone systems such as gene regulatory 
+networks. Based on nice properties of monotone systems, we provide an 
+empirical model reduction method for nonlinear monotone systems and then apply
+the proposed method to gene regulatory networks.
+
+
+
+
+==name== Adrianna R. Loback
+Biologically Plausible Observer Neural Network Models of Brain Areas Involved in Spatial Navigation
+
+Many higher-order brain areas – including the hippocampus and posterior parietal cortex (PPC), which are involved in spatial navigation and sensorimotor control, respectively – have access to only indirect information about the environmental variables they represent, and are hence observers at the system theoretic level.  Motivated by recent experimental neuroscience results, and by the observer framework from control engineering, we seek in this work to develop a data-driven theoretical framework for biologically plausible observer neural network models of the PPC and hippocampus.  We show that a general observer neural network model can reconcile two key experimental findings. To incorporate biological plausibility constraints, we focus on recurrent neural network architectures, and plan to incorporate biologically relevant plasticity rules.
+
+
+==name== Natalia Martina López Celani
+
+ROBOTICS AND TECHNOLOGY ASSISTED NEUROREHABILITATION FOR TRANSLATIONAL RESEARCH
+
+Stroke and neurological diseases are the leading causes of disability, lost of independence and need for long-term care. Neurorehabilitation programs involve the assessment of functional capabilities and interdisciplinary treatment of physical, sensorial and cognitive impairement. There is an increasing tendence to apply technology tools to promote the quantitative measurement of movements and forces, analysis of motor planification, motivation and enhancement of neuroplasticity.
+We work mostly in applied research on upper limb assisted rehabilitation, EMG processing and their applications in neurorehabilitation, serious games, and developing experimental approaches to improve recovery after stroke and other neurological conditions.
+In my presentation, I will review insights obtained from our research on these topics and will be discussed in the context of clinical applications with emphasis on passive rehabilitation devices, human-machine interfaces, software development, virtual reality and directions for future research
+
+==name== Shreya Saxena
+Performance Limitations in Sensorimotor Control: Tradeoffs between Neural Computing and Accuracy in Tracking Fast Movements
+
+The ability to move fast and accurately track moving objects is fundamentally constrained by the biophysics of neurons and dynamics of the muscles involved. Yet, the corresponding tradeoffs between these factors and tracking motor commands have not been rigorously quantified. We use feedback control principles to identify performance limitations of the sensorimotor control system (SCS) to track fast periodic movements. We show that (i) linear models of the SCS fail to predict known undesirable phenomena produced when tracking signals in the "fast regime", while nonlinear pulsatile control models can predict such undesirable phenomena, and (ii) tools from nonlinear control theory allows us to characterize fundamental limitations in this fast regime. For a class of sinusoidal input signals, we identify undesirable phenomena at the output of the SCS, including skipped cycles, overshoot and undershoot. We then derive an analytical bound on the highest frequency that the SCS can track without producing such undesirable phenomena as a function of the neurons' computational complexity and muscle dynamics. Our modeling framework not only reproduces several characteristics of motor responses in both slow and fast regimes observed in humans and monkeys, but the performance limitations derived here have far-reaching implications in sensorimotor control. In particular, our analysis can be used to guide the design of therapies for movement disorders caused by neural damage by enhancing muscle performance with assistive neuroprosthetic devices.
+
+
+==name== Thiago Marinho
+Collision Avoidance: A line-of-sight and time-to-collision approach.
+
+We discuss the problem of collision avoidance amongst autonomous vehicles  on a 2D plane. The control strategy is inspired by the way animals navigate, relying only on line-of-sight (LOS) angle and time-to-collision (TTC) as feedback, made available by the on-board gimbaled monocular camera. The novelty of this work is in the proposed avoidance strategy that achieves collision avoidance without the measurement of distance, including the guarantees supported by  Lyapunov-based analysis. Additionally, the proposed solution does not require an underlying logic that decides to avert or not the collision, therefore relaxing the conservatism of the previous results. The proposed framework is also suitable for evading collisions in a scenario with multiple obstacles. 
+
+==name== Ehsan Nekouei
+Lower Bounds on the Complexity of Solving Two Classes of Non-cooperative Games
+
+In this talk, I will discuss the complexity of solving two classes of non-cooperative games in a distributed manner in which the players communicate with a set of system nodes over noisy communication channels.  The complexity of solving each game class is defined as the minimum number of iterations required  to find a Nash equilibrium (NE) of  any game in that class with  $\epsilon$ accuracy. First, we consider the class $\mathcal{G}$ of all $N$-player non-cooperative games with a continuous action space that admit at least one NE. Using information-theoretic inequalities, we derive a lower bound on the complexity of solving $\mathcal{G}$ that depends on the Kolmogorov $2\epsilon$-capacity of the constraint set and the total capacity of the communication channels. We also derive a lower bound on the complexity of solving  games in $\mathcal{G}$ which depends on the volume and surface area of the constraint set.  We next consider the class of all $N$-player non-cooperative games with at least one NE such that the players' utility functions satisfy a certain (differential) constraint. We derive lower bounds on the complexity of solving this game class under both Gaussian and non-Gaussian noise models. Our result in the non-Gaussian  case is derived by establishing a connection between the Kullback-Leibler distance and Fisher information.
+
+==name== Jack Umenberger
+Learning convex bounds for linear quadratic control policy synthesis
+Learning to make decisions from observed data in dynamic environments remains a problem of fundamental importance in a number of fields, from artificial intelligence and robotics, to medicine and finance. This talk concerns the problem of learning control policies for unknown linear dynamical systems so as to maximize a quadratic reward function. We present a method to optimize the expected value of the reward over the posterior distribution of the unknown system parameters, given data. The algorithm involves sequential convex programing, and enjoys reliable local convergence and robust stability guarantees. Numerical simulations and stabilization of a real-world inverted pendulum are used to demonstrate the approach, with strong performance and robustness properties observed in both.
+
+==name== Yorie Nakahira
+A theoretic framework connecting speed and accuracy heterogeneity at the system and component levels
+
+The resource limitations of the brain impose severe trade-offs between speed and accuracy in neural signaling, but little theoretical foundation exists that shows how these tradeoffs impact the sensorimotor control. To develop such a foundation, we model the sensorimotor system as a control system with communication constraints and derive an analytic formula that characterizes this impact. We then show the nerve compositions that optimize the control performance for different sensorimotor control loops. This result explains the necessity of the observed nerve heterogeneity at the component level as well as the resultant performance heterogeneity at the system level, demonstrating the benefits of having a holistic perspective of both levels.
+
+==name== Alberto Padoan
+Model reduction by balanced truncation of dominant systems
+
+The talk presents a model reduction framework geared towards the analysis and design of systems that switch and oscillate. While such phenomena are ubiquitous in nature and in engineering, model reduction methods are not well developed for behaviours away from equilibria. Our framework addresses this need by exploiting recent advances on p-dominance theory and p-dissipativity theory, which aim at generalising stability theory and dissipativity theory for the analysis of systems with low-dimensional attractors. We discuss a generalisation of balanced truncation to linear dominant systems. From a mathematical viewpoint, balanced truncation requires the simultaneous diagonalisation of the reachability and observability gramians, which are positive definite matrices. Within our framework, the positivity constraint on the reachability and observability gramians is relaxed to a fixed inertia constraint: one negative eigenvalue is considered in the study of switches and two negative eigenvalues are considered in the study of oscillators. A model reduction method is then developed and shown to preserve p-dominance and p-dissipativity properties, with an explicit bound on the approximation error being available. The method is illustrated by means of simple examples and the potential of the proposed framework is illustrated by the analysis and design of multistable and oscillatory Lur’e feedback systems.
+
+==name== Felix Kong
+Iterative learning of energy-efficient dynamic walking gaits
+
+Iterative Learning Control (ILC) is a method to learn the control signal to track a reference trajectory over several attempts, with the potential for fast convergence and robustness to modelling errors. Terminal ILC (TILC), a variant of ILC, allows other performance objectives to be addressed by ignoring parts of the reference, blending trajectory optimization and motion control. However, ILC and TILC assume a fixed time duration for each attempt; for some tasks, the time duration is not known in advance. For example, the time duration of a footstep of an underactuated walking robot, or the time duration of a rocket's flight between planets changes significantly based on the control input applied to it, resulting in a problem with a ``free final time''. To address this, we introduce Phase-indexed ILC/TILC, where a phase variable in which the problem is periodic is used in place of time as an index variable for ILC/TILC. Using phase-indexed TILC, we construct such a phase variable, use it to optimize the walking gait of an underactuated dynamic walking robot, and discuss the advantages and disadvantages of this formulation compared to other trajectory optimization methods.
+
+==name== Eike Petersen
+Mathematical Modeling of Muscular Force Generation and Electromyography – A Systems Perspective
+
+Neuromuscular physiology is a vibrant research field that has recently seen exciting advances [1]. Surface electromyography (sEMG), which denotes the measurement of the electric fields generated by contracting muscle fibers, is a tool that is frequently used for investigating neuromuscular biology [2], as well as for many practical applications in prosthetics control [3], clinical diagnosis and rehabilitation [4].
+In the first part of this talk, the basic concepts underlying muscular force generation and motor unit pool organization will be discussed, and a comprehensive mathematical model of sEMG measurements and the corresponding force signal in skeletal muscles will be presented, incorporating recent physiological insights in a unified way [5]. Mathematically, it consists of a large number of linear PDEs, ODEs, and various static, sometimes stochastic nonlinear relationships, some of which are solved analytically, some numerically. Results of a numerical simulation highlight the model’s physiological credibility.
+In the second part, the previously described model is interpreted from a dynamical systems perspective, which entails useful insights into physiological force generation. Interesting consequences for the modeling and identification of physiological force feedback control are discussed [5], and a useful, novel, EMG-based force estimation algorithm is derived that performs sparse input estimation on a reduced-order version of the dynamical model [6].
+References:
+[1] Heckman, Enoka (2012): “Motor unit,” Comprehensive Physiology.
+[2] Farina, Negro, Muceli, Enoka (2016): “Principles of motor unit physiology evolve with advances in technology,” Physiology.
+[3] Farina, Jiang, Rehbaum, et al. (2014): “The extraction of neural information from the surface EMG for the control of upper-limb prostheses: emerging avenues and challenges,” IEEE Transactions on Neural Systems and Rehabilitation Engineering.
+[4] Sartori, Lloyd, Farina (2016): “Neural data-driven musculoskeletal modeling for personalized neurorehabilitation technologies,” IEEE Transactions on Biomedical Engineering.
+[5] Petersen, Rostalski (2018): “A Comprehensive Mathematical Model of Surface Electromyography and Force Generation,” submitted, preprint available at https://www.biorxiv.org/content/early/2018/02/28/273458.
+[6] Olbrich, Petersen, Hoffmann, Rostalski (2018): “Sparse Estimation for the Assessment of Muscular Activity based on sEMG Measurements,“ 18th IFAC Symposium on System Identification, SYSID 2018.
