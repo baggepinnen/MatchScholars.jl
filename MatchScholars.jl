@@ -1,9 +1,9 @@
 using LinearAlgebra, Statistics
-using TextAnalysis, ExcelReaders, StringDistances, AMD, SparseArrays, Interact, Mux, WebIO, Plots
+using TextAnalysis, ExcelReaders, StringDistances, AMD, SparseArrays, Plots
 cd(@__DIR__)
-# Literate.notebook("MatchScholars.jl", ".", documenter=false, execute=false)
-# This script analyzes the abstracts published by the department of automatic control, Lund University, and looks for similarities amngost the abstracts of the visiting scholars of the LCCC focus period
+# This script analyzes the abstracts published by the department of automatic control, Lund University, and looks for similarities between our abstracts and the abstracts of the visiting scholars of the LCCC focus period
 # The department abstract and authornames were acuired from https://lup.lub.lu.se/search/publication?q=department+exact+v1000253 and exported as an excel file [publications.xsl](publications.xsl). The abstracts of the visiting scolars are provided in [visitors.txt](visitors.txt)
+# To compile this notebook, run the line `Literate.notebook("MatchScholars.jl", ".", documenter=false, execute=false)`
 
 # # Read department data
 filename  = "publications.xls"
@@ -59,11 +59,13 @@ visitor_abstracts = build_abstract(visitortext)[2:end]
 docs = StringDocument.([deepcopy(abstracts); deepcopy(visitor_abstracts)])
 crps = Corpus(deepcopy(docs))
 prepare!(crps, strip_corrupt_utf8 | strip_case | strip_articles | strip_prepositions | strip_pronouns | strip_stopwords | strip_whitespace | strip_non_letters | strip_numbers)
-remove_words!(crps, ["br"]) # For some reason the word "br" appeas very often (html tag?)
+remove_words!(crps, ["br", "control", "system", "systems"]) # For some reason the word "br" appeas very often (html tag?)
 update_lexicon!(crps)
 
 # # Analysis
 # We will perform two sets of analysis, [Latent Dirichlet Allocation (LDA)](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) and [Latent Semantic Analysis (LSA)](https://en.wikipedia.org/wiki/Latent_semantic_analysis)
+# Ideally, since we are going to use the founds topics for similarity analysis, we should use a correlated topic model (CTM). I could not find a working implementation of that and didn't have the time to fix one, so LDA will have to do. We can estimate topic correlations adhoc using either ϕ*ϕ' (on a word similarity basis) or θ*θ' (on author similarity basis)
+
 # LDA
 m     = DocumentTermMatrix(crps)
 k     = 6 # number of topics
@@ -85,8 +87,18 @@ end
 topics = hcat(topics...)
 # `topics` is now a matrix where each column consists of the 20 most prominent words in each topic
 # We can also define some interesting covaiance matrices for visualization (plots omitted)
+function corr(x::AbstractMatrix)
+    d = diag(x)
+    y = copy(x)
+    for i = 1:length(d), j = 1:length(d)
+        y[i,j] /= sqrt(x[i,i]*x[j,j])
+    end
+    y
+end
 topic_covariance_by_words     = Matrix(ϕ*ϕ')
 topic_covariance_by_documents = Matrix(θ*θ')
+topic_correlation_by_words = corr(topic_covariance_by_words)
+topic_correlation_by_documents = corr(topic_covariance_by_documents)
 document_covariance           = θ'θ
 
 # We now conduct some tedious coding to associate the authors of the abstracts in the publication database with the current staff members
@@ -134,13 +146,13 @@ staff_vectors = hcat(staff_vectors...) # n_topics × n_staff
 visitor_vectors = θ[:,end-length(visitors)+1:end] # n_topics × n_visitors
 
 # The correlation between the abstracts of the staff and the abstracts of the visiting scholars are given by the inner product of their respective topic vectors
-visitor_staff_covariance = staff_vectors'visitor_vectors
+visitor_staff_covariance = staff_vectors'topic_correlation_by_documents*visitor_vectors
 
 # Before we plot the covariance matrix, we try to approximately diagonalize it using the [AMD algorithm](https://github.com/JuliaSmoothOptimizers/AMD.jl). To do this, we have to set some elements that fall beneath a certain threshold to zero. We plot a histogram to assist us in setting this threshold
 function diagonalize(C, tol; permute_y=false, doplot=true)
     C = copy(C)
-    # amdmat = size(C,1) == size(C,2) ? C : C'C
-    amdmat = C'C
+    amdmat = size(C,1) == size(C,2) ? copy(C) : C'C
+    # amdmat = C'C
     doplot && (histogram(abs.(amdmat[:])) |> display)
     amdmat[abs.(amdmat) .< tol] .= 0
     permutation = amd(sparse(amdmat))
@@ -153,14 +165,39 @@ function plotcovariance(C, xvector, yvector; kwargs...)
     heatmap(C; xticks=xticks, yticks=yticks, xrotation=90, title="Author similarity", kwargs...)
 end
 
-C, permutation, ypermutation = diagonalize(visitor_staff_covariance, 2.5, permute_y=false)
+C, permutation, ypermutation = diagonalize(visitor_staff_covariance, 4, permute_y=false)
 plotcovariance(C, visitors[permutation], staff_authorname[ypermutation], xlabel="Visiting scholars", ylabel="Control staff", size=(600,1000))
 
-# We can do the same analysis amngost the staff members
-staff_covariance = staff_vectors'staff_vectors
-s = slider(range(0.1, stop=5, length=30))
-@manipulate for tol in s
-    C, permutation, ypermutation = diagonalize(staff_covariance, tol, permute_y=true, doplot=false)
-    plotcovariance(C,staff_authorname[permutation],staff_authorname[permutation], xrotation=90, size=(1000,1000), yflip=true)
+# We can do the same analysis among the staff members
+staff_covariance = staff_vectors'topic_correlation_by_documents*staff_vectors
+
+C, permutation, ypermutation = diagonalize(staff_covariance, 0.3, permute_y=true, doplot=true)
+plotcovariance(C,staff_authorname[permutation],staff_authorname[permutation], xrotation=90, size=(1000,1000), yflip=true)
+
+
+# LSA
+error("LSA not yet working")
+tfidf = tf_idf(m)
+S = svd(Matrix(tfidf))
+
+staff_vectors = map(document_indices_of_staff) do staffdocinds
+    # ϕ: topics × words   θ: topics × documents
+    mean(S.U[staffdocinds,1:k], dims=1)[:]
 end
-# WebIO.webio_serve(page("/", req -> ui), 8000)
+staff_vectors = hcat(staff_vectors...) # n_topics × n_staff
+
+# The vectors of the visiting scholars are easy to find since they have only a single abstract each
+visitor_vectors = S.U[end-length(visitors)+1:end,1:k]' # n_topics × n_visitors
+
+
+
+visitor_staff_covariance = staff_vectors'visitor_vectors
+
+C, permutation, ypermutation = diagonalize(visitor_staff_covariance, 1e-21, permute_y=false, doplot=false)
+plotcovariance(C, visitors[permutation], staff_authorname[ypermutation], xlabel="Visiting scholars", ylabel="Control staff", size=(600,1000))
+
+# We can do the same analysis among the staff members
+staff_covariance = staff_vectors'topic_correlation_by_documents*staff_vectors
+
+C, permutation, ypermutation = diagonalize(staff_covariance, 0.001, permute_y=true, doplot=true)
+plotcovariance(C,staff_authorname[permutation],staff_authorname[permutation], xrotation=90, size=(1000,1000), yflip=true)
