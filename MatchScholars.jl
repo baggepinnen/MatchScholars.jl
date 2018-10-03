@@ -189,8 +189,6 @@ staff_vectors = hcat(staff_vectors...) # n_topics × n_staff
 # The vectors of the visiting scholars are easy to find since they have only a single abstract each
 visitor_vectors = S.U[end-length(visitors)+1:end,1:k]' # n_topics × n_visitors
 
-
-
 visitor_staff_covariance = staff_vectors'visitor_vectors
 
 C, permutation, ypermutation = diagonalize(visitor_staff_covariance, 1e-21, permute_y=false, doplot=false)
@@ -201,3 +199,20 @@ staff_covariance = staff_vectors'topic_correlation_by_documents*staff_vectors
 
 C, permutation, ypermutation = diagonalize(staff_covariance, 0.001, permute_y=true, doplot=true)
 plotcovariance(C,staff_authorname[permutation],staff_authorname[permutation], xrotation=90, size=(1000,1000), yflip=true)
+
+
+
+
+# Staff connections
+
+coauthor_graph = map(Iterators.product(staff_authorname,staff_authorname)) do (s1,s2)
+    count(occursin(s1,a) && occursin(s2,a) for a in authors)
+end
+ticks = (collect(eachindex(staff_authorname)), staff_authorname)
+heatmap(log1p.(coauthor_graph), xticks=ticks, yticks=ticks, xrotation=90, title="Co-author graph (log(1+x))")
+
+using LightGraphs, GraphPlot, Compose, Cairo, Colors
+graph = SimpleGraph(coauthor_graph)
+
+nodefillc = diag(coauthor_graph)
+gplot(graph, nodelabel=staff_authorname, nodelabeldist=1, layout=spring_layout,nodefillc=nodefillc)
