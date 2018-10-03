@@ -1,0 +1,4 @@
+*.ipynb
+*.jmd
+*.html
+.ipynb_checkpoints/*
