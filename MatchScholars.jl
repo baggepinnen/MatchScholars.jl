@@ -1,9 +1,9 @@
 using LinearAlgebra, Statistics
 using TextAnalysis, ExcelReaders, StringDistances, AMD, SparseArrays, Interact, Mux, WebIO, Plots
 cd(@__DIR__)
-# Literate.notebook("MatchScholars.jl", ".", documenter=false, execute=false)
 # This script analyzes the abstracts published by the department of automatic control, Lund University, and looks for similarities amngost the abstracts of the visiting scholars of the LCCC focus period
-# The department abstract and authornames were acuired from https://lup.lub.lu.se/search/publication?q=department+exact+v1000253 and exported as an excel file [publications.xsl](publications.xsl). The abstracts of the visiting scolars are provided in [visitors.txt](visitors.txt)
+# The department abstract and authornames were acquired from https://lup.lub.lu.se/search/publication?q=department+exact+v1000253 and exported as an excel file [publications.xsl](publications.xsl). The abstracts of the visiting scolars are provided in [visitors.txt](visitors.txt)
+# To compile this notebook, run `Literate.notebook("MatchScholars.jl", ".", documenter=false, execute=false); convert_doc("MatchScholars.ipynb", "MatchScholars.jmd"); weave("MatchScholars.jmd")`
 
 # # Read department data
 filename  = "publications.xls"
@@ -66,10 +66,10 @@ update_lexicon!(crps)
 # We will perform two sets of analysis, [Latent Dirichlet Allocation (LDA)](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) and [Latent Semantic Analysis (LSA)](https://en.wikipedia.org/wiki/Latent_semantic_analysis)
 # LDA
 m     = DocumentTermMatrix(crps)
-k     = 6 # number of topics
+k     = 6    # number of topics
 iters = 1000 # number of gibbs sampling iterss
-α     = 1/k # hyper parameter topics per document
-β     = 0.01 # hyber parameter words per topic
+α     = 1/k  # hyper parameter topics per document
+β     = 0.01 # hyper parameter words per topic
 ϕ,θ   = lda(m, k, iters, α, β) # ϕ: topics × words θ: topics × documents
 println("Occupancy: ", sum(ϕ.!=0)/length(ϕ))
 
